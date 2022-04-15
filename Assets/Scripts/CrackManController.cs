@@ -54,8 +54,7 @@ public class CrackManController : MonoBehaviour{
     }
 
     void OnTriggerEnter(Collider hit){
-        if (hit.gameObject.tag == "Coin")
-        {
+        if (hit.gameObject.tag == "Coin"){
             Destroy(hit.gameObject);
             collectCoinAudio.Play();
             coinSum.coinSum--;

@@ -45,6 +45,7 @@
      <Compile Include="Assets/Scripts/CrackManController.cs" />
      <Compile Include="Assets/Scripts/EnemySpawner.cs" />
      <Compile Include="Assets/Scripts/GhostController.cs" />
+     <Compile Include="Assets/Scripts/StartController.cs" />
      <None Include="Assets/Download/DavePixel/ReadMe!.rtf.txt" />
     <Reference Include="UnityEngine">
         <HintPath>/home/lukas/Unity/Hub/Editor/2020.3.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
