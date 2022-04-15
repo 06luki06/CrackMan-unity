@@ -16,29 +16,39 @@ public class CrackManController : MonoBehaviour{
     }
 
     // Update is called once per frame
-    void Update(){
-        /*if (Input.GetKey(KeyCode.RightArrow)){
+    void FixedUpdate(){
+        rb.velocity = new Vector3(0, 0, 0);
+
+/*
+        if (Input.GetKey(KeyCode.D)){
+            rb.velocity = new Vector3(-speed, 0, 0);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
             rb.velocity = new Vector3(speed, 0, 0);
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.W))
         {
-            rb.velocity = new Vector3(speed * -1, 0, 0);
+            rb.velocity = new Vector3(0, 0, -speed);
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             rb.velocity = new Vector3(0, 0, speed);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            rb.velocity = new Vector3(0, 0, speed * -1);
         }*/
 
         float inputHorizontal = Input.GetAxis("Horizontal");
         float inputVertical = Input.GetAxis("Vertical");
+        float mouse = Input.GetAxis("Mouse X");
+        //transform.Rotate(0, mouse, 0);
+        //rb.velocity = new Vector3(inputVertical, 0, 0) * speed;
+        //TODO: change the type of movement
         this.transform.Translate(new Vector3(0, 0, inputVertical) * speed * Time.deltaTime);
         this.transform.Rotate(new Vector3(0, inputHorizontal, 0) * angle * Time.deltaTime);
+        //this.transform.Rotate(new Vector3(-mouse * 10, 0, 0));
+
 
     }
+
 
     void OnTriggerEnter(Collider hit)
     {
@@ -47,6 +57,10 @@ public class CrackManController : MonoBehaviour{
             Destroy(hit.gameObject);
             collectCoinAudio.Play();
             coinSum.coinSum--;
+        }
+
+        if(hit.gameObject.tag == "Terrain"){
+            Debug.Log("hit");
         }
     }
 }
