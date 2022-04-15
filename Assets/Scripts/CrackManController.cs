@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CrackManController : MonoBehaviour{
     public Rigidbody rb;
@@ -63,14 +64,25 @@ public class CrackManController : MonoBehaviour{
             if(coinsCollected % 3 == 0){
                 ghosts.SpawnGhost();
             }
+
+            calcHighScore(coinsCollected);
         }
 
         if(hit.gameObject.tag == "Enemy"){
-            Respawn();
+            Result(coinsCollected);
         }
     }
 
-    void Respawn(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    void Result(int currentScore){
+        PlayerPrefs.SetInt("currentscore", currentScore);
+        SceneManager.LoadScene(2);
+    }
+
+    void calcHighScore(int currentScore){
+        int currentHighscore = PlayerPrefs.GetInt("highscore");
+        if(currentScore > currentHighscore){
+            PlayerPrefs.SetInt("highscore", currentScore);
+            PlayerPrefs.Save();
+        }
     }
 }

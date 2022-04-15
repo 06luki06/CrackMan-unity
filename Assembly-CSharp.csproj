@@ -37,15 +37,20 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets/Scripts/CoinSpawner.cs" />
+     <Compile Include="Assets/Scripts/EnemySpawner.cs" />
      <Compile Include="Assets/Scripts/CoinController.cs" />
+     <Compile Include="Assets/Scripts/GhostController.cs" />
      <Compile Include="Assets/Scripts/FPSLimiter.cs" />
      <Compile Include="Assets/Download/SpaceSkies Free/Demo/Scripts/LookCamera.cs" />
      <Compile Include="Assets/Scripts/ScoreController.cs" />
+     <Compile Include="Assets/Scripts/StartController.cs" />
      <Compile Include="Assets/Download/SpaceSkies Free/Demo/Scripts/SkyboxChanger.cs" />
      <Compile Include="Assets/Scripts/CrackManController.cs" />
-     <Compile Include="Assets/Scripts/EnemySpawner.cs" />
-     <Compile Include="Assets/Scripts/GhostController.cs" />
-     <Compile Include="Assets/Scripts/StartController.cs" />
+     <Compile Include="Assets/Scripts/HighScoreController.cs" />
+     <Compile Include="Assets/Scripts/ExitGame.cs" />
+     <Compile Include="Assets/Scripts/BackButtonController.cs" />
+     <Compile Include="Assets/Scripts/ShowScore.cs" />
+     <Compile Include="Assets/Scripts/TryAgainButton.cs" />
      <None Include="Assets/Download/DavePixel/ReadMe!.rtf.txt" />
     <Reference Include="UnityEngine">
         <HintPath>/home/lukas/Unity/Hub/Editor/2020.3.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
