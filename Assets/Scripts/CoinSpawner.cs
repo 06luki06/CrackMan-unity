@@ -21,7 +21,7 @@ public class CoinSpawner : MonoBehaviour{
         float randomZ = Random.Range(230, 900);
 
         GameObject coin = Instantiate(coinPF);
-        coin.transform.position = new Vector3(randomX, 15, randomZ);
+        coin.transform.position = new Vector3(randomX, 7, randomZ);
         coinSum++;
     }
 }

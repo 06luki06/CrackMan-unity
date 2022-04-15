@@ -11,6 +11,8 @@ public class CrackManController : MonoBehaviour{
     public CoinSpawner coinSum;
     public EnemySpawner ghosts;
     public AudioSource collectCoinAudio;
+    public AudioSource movement;
+
     public int coinsCollected;
 
     void Start(){
@@ -49,6 +51,15 @@ public class CrackManController : MonoBehaviour{
         //transform.Rotate(0, mouse, 0);
         //rb.velocity = new Vector3(inputVertical, 0, 0) * speed;
         //TODO: change the type of movement
+
+        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S)){
+            movement.Play();
+        }
+
+        if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)){
+            movement.Pause();
+        }
+
         this.transform.Translate(new Vector3(0, 0, inputVertical) * speed * Time.deltaTime);
         this.transform.Rotate(new Vector3(0, inputHorizontal, 0) * angle * Time.deltaTime);
         //this.transform.Rotate(new Vector3(-mouse * 10, 0, 0));
@@ -70,6 +81,7 @@ public class CrackManController : MonoBehaviour{
 
         if(hit.gameObject.tag == "Enemy"){
             Result(coinsCollected);
+            
         }
     }
 
