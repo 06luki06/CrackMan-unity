@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CrackManController : MonoBehaviour{
-    public Rigidbody rb;
+
+    public CharacterController controller;
+    public Transform cam;
     public float speed = 50f;
-    public float angle;
+    public float turnTime = 0.1f;
+    float turnSpped;
     public CoinSpawner coinSum;
     public EnemySpawner ghosts;
     public AudioSource collectCoinAudio;
@@ -20,49 +23,28 @@ public class CrackManController : MonoBehaviour{
     }
 
     void FixedUpdate(){
-        rb.velocity = new Vector3(0, 0, 0);
         
-        float inputHorizontal = Input.GetAxis("Horizontal");
-        float inputVertical = Input.GetAxis("Vertical");
 
-        /*
-        if (Input.GetKey(KeyCode.D)){
-            rb.velocity = new Vector3(-speed, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.velocity = new Vector3(speed, 0, 0);
-        }
-
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.velocity = new Vector3(transform.position.x + 1, 0, -speed);
-            //rb.AddForce(speed * Time.deltaTime, 0, 0);
-             //this.transform.TransformDirection(new Vector3(inputHorizontal, 0, inputVertical) * speed * Time.deltaTime).normalized;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.velocity = new Vector3(transform.position.x -1, 0, speed);
-        }*/
-
-
-        float mouse = Input.GetAxis("Mouse X");
-        //transform.Rotate(0, mouse, 0);
-        //rb.velocity = new Vector3(inputVertical, 0, 0) * speed;
-        //TODO: change the type of movement
-
-        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S)){
+        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)){
             movement.Play();
         }
 
-        if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)){
+        if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)){
             movement.Pause();
         }
 
-        this.transform.Translate(new Vector3(0, 0, inputVertical) * speed * Time.deltaTime);
-        this.transform.Rotate(new Vector3(0, inputHorizontal, 0) * angle * Time.deltaTime);
-        //this.transform.Rotate(new Vector3(-mouse * 10, 0, 0));
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        if(direction.magnitude >= 0.1f){
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y; //Atan2 = x/y --> angle
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSpped, turnTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+        }
     }
 
     void OnTriggerEnter(Collider hit){
